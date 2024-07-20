@@ -1,0 +1,27 @@
+<div id="<%= dom_id booking %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= booking.user.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Client:</strong>
+    <%= booking.client.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Appointment type:</strong>
+    <%= booking.appointment_type.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Date:</strong>
+    <%= booking.date %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration:</strong>
+    <%= booking.duration %>
+  </p>
+
+</div>
