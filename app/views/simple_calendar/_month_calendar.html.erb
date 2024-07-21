@@ -1,14 +1,15 @@
 <div class="simple-calendar max-w-5xl mx-auto mt-10 bg-white shadow-md rounded-lg">
   <!-- Calendar Heading -->
-  <div class="calendar-heading flex justify-between items-center p-4 border-b border-gray-200">
+  <div class="calendar-heading flex flex-wrap justify-between items-center p-4 border-b border-gray-200">
     <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title text-2xl font-semibold">
       <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
     </time>
 
     <nav class="space-x-4">
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "text-blue-500 hover:underline" %>
-      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view, class: "text-blue-500 hover:underline" %>
-      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "text-blue-500 hover:underline" %>
+      <%= link_to calendar.url_for_previous_view, class: "previous" do %>
+      <% end %>
+      <%= link_to calendar.url_for_next_view, class: "next" do %>
+      <% end %>
     </nav>
   </div>
 
