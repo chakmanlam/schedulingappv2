@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_21_174134) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_21_200208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_21_174134) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.index ["appointment_type_id"], name: "index_bookings_on_appointment_type_id"
     t.index ["client_id"], name: "index_bookings_on_client_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
