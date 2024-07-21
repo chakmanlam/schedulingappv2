@@ -1,25 +1,25 @@
-class AppointmentTypesController < ApplicationController
+class AppointmentTypeController < ApplicationController
   before_action :set_appointment_type, only: %i[ show edit update destroy ]
 
-  # GET /appointment_types or /appointment_types.json
+  # GET /appointment_type or /appointment_type.json
   def index
-    @appointment_types = AppointmentType.all
+    @appointment_type = AppointmentType.all
   end
 
-  # GET /appointment_types/1 or /appointment_types/1.json
+  # GET /appointment_type/1 or /appointment_type/1.json
   def show
   end
 
-  # GET /appointment_types/new
+  # GET /appointment_type/new
   def new
     @appointment_type = AppointmentType.new
   end
 
-  # GET /appointment_types/1/edit
+  # GET /appointment_type/1/edit
   def edit
   end
 
-  # POST /appointment_types or /appointment_types.json
+  # POST /appointment_type or /appointment_type.json
   def create
     @appointment_type = AppointmentType.new(appointment_type_params)
 
@@ -34,7 +34,7 @@ class AppointmentTypesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /appointment_types/1 or /appointment_types/1.json
+  # PATCH/PUT /appointment_type/1 or /appointment_type/1.json
   def update
     respond_to do |format|
       if @appointment_type.update(appointment_type_params)
@@ -47,12 +47,12 @@ class AppointmentTypesController < ApplicationController
     end
   end
 
-  # DELETE /appointment_types/1 or /appointment_types/1.json
+  # DELETE /appointment_type/1 or /appointment_type/1.json
   def destroy
     @appointment_type.destroy!
 
     respond_to do |format|
-      format.html { redirect_to appointment_types_url, notice: "Appointment type was successfully destroyed." }
+      format.html { redirect_to appointment_type_url, notice: "Appointment type was successfully destroyed." }
       format.json { head :no_content }
     end
   end

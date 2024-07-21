@@ -33,7 +33,6 @@ class BookingsController < ApplicationController
     @booking.client = client
     @booking.user = user
 
-
     respond_to do |format|
       if @booking.save
         format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
@@ -76,6 +75,6 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.require(:booking).permit(:user_id, :appointment_type_id, :date, :duration, :client_name, :client_email, :client_phone)
+      params.require(:booking).permit(:user_id, :appointment_type_id, :datetime, :duration, :client_name, :client_email, :client_phone)
     end
 end
