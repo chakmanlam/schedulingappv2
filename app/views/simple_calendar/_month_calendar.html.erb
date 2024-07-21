@@ -1,0 +1,42 @@
+<div class="simple-calendar max-w-5xl mx-auto mt-10 bg-white shadow-md rounded-lg">
+  <!-- Calendar Heading -->
+  <div class="calendar-heading flex justify-between items-center p-4 border-b border-gray-200">
+    <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title text-2xl font-semibold">
+      <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+    </time>
+
+    <nav class="space-x-4">
+      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "text-blue-500 hover:underline" %>
+      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view, class: "text-blue-500 hover:underline" %>
+      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "text-blue-500 hover:underline" %>
+    </nav>
+  </div>
+
+  <!-- Calendar Table -->
+  <table class="table-auto w-full border-collapse">
+    <!-- Table Header -->
+    <thead>
+      <tr>
+        <% date_range.slice(0, 7).each do |day| %>
+          <th class="px-4 py-2 border border-gray-200 bg-gray-100 text-center font-medium"><%= t('date.abbr_day_names')[day.wday] %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <!-- Table Body -->
+    <tbody>
+      <% date_range.each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |day| %>
+            <%= content_tag :td, class: "align-top px-4 py-4 border border-gray-200 #{'bg-blue-50' if day == Date.today}" do %>
+              <div class="text-right font-semibold text-gray-700"><%= day.day %></div>
+              <div class="mt-2">
+                <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
+              </div>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
