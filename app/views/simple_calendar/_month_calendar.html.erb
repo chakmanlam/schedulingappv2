@@ -7,8 +7,10 @@
 
     <nav class="space-x-4">
       <%= link_to calendar.url_for_previous_view, class: "previous" do %>
+        <span></span>
       <% end %>
       <%= link_to calendar.url_for_next_view, class: "next" do %>
+        <span></span>
       <% end %>
     </nav>
   </div>
@@ -19,7 +21,7 @@
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
-          <th class="px-4 py-2 border border-gray-200 bg-gray-100 text-center font-medium"><%= t('date.abbr_day_names')[day.wday] %></th>
+          <th class="px-4 py-2 bg-gray-100 text-center font-medium text-gray-700"><%= t('date.abbr_day_names')[day.wday] %></th>
         <% end %>
       </tr>
     </thead>
@@ -29,10 +31,17 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: "align-top px-4 py-4 border border-gray-200 #{'bg-blue-50' if day == Date.today}" do %>
-              <div class="text-right font-semibold text-gray-700"><%= day.day %></div>
-              <div class="mt-2">
-                <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
+            <%= content_tag :td, class: "align-top h-32 sm:h-40 md:h-48 lg:h-56 px-4 py-2 border-t border-r border-gray-200 #{'bg-blue-50' if day == Date.today} " do %>
+              <div>
+                <div class="text-right font-semibold text-gray-700"><%= day.day %></div>
+              </div>
+              <div class="mt-2 space-y-1">
+                <% calendar.sorted_events_for(day).each do |event| %>
+                  <div class="text-sm text-center text-gray-800 bg-gray-100 rounded px-2 py-1">
+                    <%= event.datetime.strftime('%I:%M %p') %>
+                    <%= event.client.name %>
+                  </div>
+                <% end %>
               </div>
             <% end %>
           <% end %>
@@ -41,3 +50,4 @@
     </tbody>
   </table>
 </div>
+7

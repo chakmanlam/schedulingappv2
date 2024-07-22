@@ -13,14 +13,19 @@
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
+    transition: transform 0.3s, color 0.3s;
   }
   .next::after {
     content: url('data:image/svg+xml;utf8,<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>');
     display: inline-block;
     width: 1.5em;
     height: 1.5em;
+    transition: transform 0.3s, color 0.3s;
+
   }
+
+  .previous:hover::before,
+  .next:hover::after {
+    transform: scale(1.2);
+    color: #1d4ed8; /* Tailwind's blue-700 color */
 }
-
-
-
