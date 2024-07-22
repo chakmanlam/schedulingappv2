@@ -28,4 +28,5 @@
   .next:hover::after {
     transform: scale(1.2);
     color: #1d4ed8; /* Tailwind's blue-700 color */
+  }
 }

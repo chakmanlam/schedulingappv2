@@ -38,8 +38,9 @@
               <div class="mt-2 space-y-1">
                 <% calendar.sorted_events_for(day).each do |event| %>
                   <div class="text-sm text-center text-gray-800 bg-gray-100 rounded px-2 py-1">
-                    <%= event.datetime.strftime('%I:%M %p') %>
-                    <%= event.client.name %>
+                  <%= link_to booking_path(event), class: "block text-sm text-center text-gray-800 bg-gray-100 rounded px-2 py-1" do %>
+                    <%= event.datetime.strftime('%I:%M %p') %> <%= event.client.name %>
+                  <% end %>
                   </div>
                 <% end %>
               </div>
@@ -50,4 +51,3 @@
     </tbody>
   </table>
 </div>
-7
