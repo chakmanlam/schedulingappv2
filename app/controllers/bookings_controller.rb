@@ -75,6 +75,9 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.require(:booking).permit(:user_id, :appointment_type_id, :datetime, :duration, :client_name, :client_email, :client_phone)
+      date = params[:booking][:date]
+      time = params[:booking][:time]
+      combined_datetime = DateTime.parse("#{date}T#{time}")
+      params.require(:booking).permit(:user_id, :appointment_type_id, :duration, :client_name, :client_email, :client_phone).merge(datetime: combined_datetime)
     end
 end

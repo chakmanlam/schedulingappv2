@@ -1,50 +1,60 @@
-<%= form_with(model: booking, class: "contents") do |form| %>
-  <% if booking.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+<div class="p-10 bg-gray-100 border border-gray-300 rounded-lg max-w-lg mx-auto">
+  <%= form_with(model: booking, class: "contents space-y-6") do |form| %>
+    <% if booking.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg">
+        <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
 
-      <ul>
-        <% booking.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% booking.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="grid grid-cols-1 gap-6">
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :user_id, "User:", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "Select User" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :client_name, "Client Name:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.text_field :client_name, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :client_email, "Client Email:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.email_field :client_email, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :client_phone, "Client Phone:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.text_field :client_phone, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :appointment_type, "Type", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.collection_select :appointment_type_id, AppointmentType.all, :id, :name, { prompt: "Select Appointment Type" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :date, "Date:", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.date_field :date, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :time, "Time:", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.time_field :time, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full", step: 1800 %>
+      </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :duration, "Duration:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.number_field :duration, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <%= form.submit "Create", class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
   <% end %>
+</div>
 
-  <div class="my-5">
-    <%= form.label :client_name, "Client Name" %>
-    <%= form.text_field :client_name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :client_email, "Client Email" %>
-    <%= form.email_field :client_email, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :client_phone, "Client Phone" %>
-    <%= form.text_field :client_phone, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
 
-  <div class="my-5">
-    <%= form.label :user_id %>
-    <%= form.collection_select :user_id, User.all, :id, :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :appointment_type %>
-    <%= form.collection_select :appointment_type_id, AppointmentType.all, :id, :name, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :datetime %>
-    <%= form.datetime_field :datetime, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :duration %>
-    <%= form.number_field :duration, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
