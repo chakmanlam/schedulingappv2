@@ -1,4 +1,4 @@
-<div data-controller="toggle-form">
+<div data-controller="modal">
   <div class="flex bg-gray-100 border border-gray-300 rounded-lg w-full mx-auto">
     <!-- Left Column for Timeline -->
     <div class="w-1/4 bg-white border-r border-gray-300">
@@ -6,7 +6,7 @@
         <div class="flex-1 text-center">
           <h2 class="text-l">Timeline</h2>
         </div>
-        <button data-action="click->toggle-form#toggle" class="bg-emerald-600 text-white font-bold w-10 h-10 flex items-center justify-center">
+        <button data-action="click->modal#open" class="bg-emerald-600 text-white font-bold w-10 h-10 flex items-center justify-center">
           +
         </button>
       </div>
@@ -25,10 +25,6 @@
           </li>
         <% end %>
       </ul>
-    <!-- Hidden form for new booking -->
-    <div id="new-booking-form" class="hidden mt-4 p-4 bg-gray-200 rounded" data-toggle-form-target="form">
-      <%= render 'bookings/form', client_name: @client.name, client_email: @client.email, client_phone: @client.phone, booking: Booking.new() %>
-    </div>
     </div>
 
     <!-- Right Column for Client Information -->
@@ -38,5 +34,14 @@
       <p class="text-gray-700"><strong>Phone:</strong> <%= @client.phone %></p>
     </div>
   </div>
-</div>
 
+  <!-- Modal for New Booking Form -->
+  <div data-modal-target="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden modal-overlay">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md relative modal-content">
+      <%= render 'bookings/form', booking: Booking.new, client_name: @client.name, client_email: @client.email, client_phone: @client.phone %>
+      <div class="text-center mt-1 mb-1">
+        <button data-action="click->modal#close" class="bg-gray-500 text-white rounded-lg px-4 py-2 hover:bg-gray-700">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

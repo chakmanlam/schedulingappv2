@@ -29,4 +29,16 @@
     transform: scale(1.2);
     color: #1d4ed8; /* Tailwind's blue-700 color */
   }
+
+  /* Add any additional styles here */
+  .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
 }
