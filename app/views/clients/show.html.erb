@@ -1,15 +1,28 @@
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+<div class="flex bg-gray-100 border border-gray-300 rounded-lg w-full mx-auto">
+  <!-- Left Column for Timeline -->
+  <div class="w-1/4 bg-white border-r border-gray-300">
+    <h2 class="text-l mt-1 text-center">Timeline</h2>
+    <ul class="space-y-2 mt-1">
+      <% @bookings.each do |booking| %>
+        <li class="border border-gray-300 hover:bg-gray-100 cursor-pointer" onclick="toggleDetails(this)">
+          <div class="flex justify-between items-center bg-gray-100">
+            <span class="w-1/4 text-center p-1 bg-indigo-200"><%= booking.datetime.strftime('%b %d, %Y') %></span>
+            <span class="w-3/4 text-center"><%= booking.appointment_type.name %></span>
+          </div>
+          <div class="hidden mt-2">
+            <p><strong>User:</strong> <%= booking.user.name %></p>
+            <p><strong>Time:</strong> <%= booking.datetime.strftime('%I:%M %p') %></p>
+            <p><strong>Duration:</strong> <%= booking.duration %> minutes</p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-    <%= render @client %>
-
-    <%= link_to "Edit this client", edit_client_path(@client), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Back to clients", clients_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to "Destroy this client", @client, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
-    </div>
+  <!-- Right Column for Client Information -->
+  <div class="w-3/4 p-4">
+    <h1 class="text-2xl font-bold mb-4"><%= @client.name %></h1>
+    <p class="text-gray-700"><strong>Email:</strong> <%= @client.email %></p>
+    <p class="text-gray-700"><strong>Phone:</strong> <%= @client.phone %></p>
   </div>
 </div>
