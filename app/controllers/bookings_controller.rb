@@ -29,9 +29,10 @@ class BookingsController < ApplicationController
       c.phone = booking_params[:client_phone]
     end
 
-    @booking = Booking.new(booking_params.except(:client_name, :client_email, :client_phone))
+    @booking = Booking.new(booking_params.except(:client_name, :client_email, :client_phone, :date, :time))
     @booking.client = client
     @booking.user = user
+    @booking.datetime = DateTime.parse("#{booking_params[:date]}T#{booking_params[:time]}")
 
     respond_to do |format|
       if @booking.save
@@ -75,9 +76,6 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      date = params[:booking][:date]
-      time = params[:booking][:time]
-      combined_datetime = DateTime.parse("#{date}T#{time}")
-      params.require(:booking).permit(:user_id, :appointment_type_id, :duration, :client_name, :client_email, :client_phone).merge(datetime: combined_datetime)
+      params.require(:booking).permit(:user_id, :appointment_type_id, :duration, :client_name, :client_email, :client_phone, :date, :time)
     end
 end
