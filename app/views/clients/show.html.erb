@@ -1,28 +1,42 @@
-<div class="flex bg-gray-100 border border-gray-300 rounded-lg w-full mx-auto">
-  <!-- Left Column for Timeline -->
-  <div class="w-1/4 bg-white border-r border-gray-300">
-    <h2 class="text-l mt-1 text-center">Timeline</h2>
-    <ul class="space-y-2 mt-1">
-      <% @bookings.each do |booking| %>
-        <li class="border border-gray-300 hover:bg-gray-100 cursor-pointer" onclick="toggleDetails(this)">
-          <div class="flex justify-between items-center bg-gray-100">
-            <span class="w-1/4 text-center p-1 bg-indigo-200"><%= booking.datetime.strftime('%b %d, %Y') %></span>
-            <span class="w-3/4 text-center"><%= booking.appointment_type.name %></span>
-          </div>
-          <div class="hidden mt-2">
-            <p><strong>User:</strong> <%= booking.user.name %></p>
-            <p><strong>Time:</strong> <%= booking.datetime.strftime('%I:%M %p') %></p>
-            <p><strong>Duration:</strong> <%= booking.duration %> minutes</p>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
+<div data-controller="toggle-form">
+  <div class="flex bg-gray-100 border border-gray-300 rounded-lg w-full mx-auto">
+    <!-- Left Column for Timeline -->
+    <div class="w-1/4 bg-white border-r border-gray-300">
+      <div class="flex justify-between items-center">
+        <div class="flex-1 text-center">
+          <h2 class="text-l">Timeline</h2>
+        </div>
+        <button data-action="click->toggle-form#toggle" class="bg-emerald-600 text-white font-bold w-10 h-10 flex items-center justify-center">
+          +
+        </button>
+      </div>
+      <ul class="space-y-2">
+        <% @bookings.each do |booking| %>
+          <li class="border border-gray-300 hover:bg-gray-100 cursor-pointer" onclick="toggleDetails(this)">
+            <div class="flex justify-between items-center bg-gray-100">
+              <span class="w-1/4 text-center p-1 bg-indigo-200"><%= booking.datetime.strftime('%b %d, %Y') %></span>
+              <span class="w-3/4 text-center"><%= booking.appointment_type.name %></span>
+            </div>
+            <div class="hidden mt-2">
+              <p><strong>User:</strong> <%= booking.user.name %></p>
+              <p><strong>Time:</strong> <%= booking.datetime.strftime('%I:%M %p') %></p>
+              <p><strong>Duration:</strong> <%= booking.duration %> minutes</p>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <!-- Hidden form for new booking -->
+    <div id="new-booking-form" class="hidden mt-4 p-4 bg-gray-200 rounded" data-toggle-form-target="form">
+      <%= render 'bookings/form', client_name: @client.name, client_email: @client.email, client_phone: @client.phone, booking: Booking.new() %>
+    </div>
+    </div>
 
-  <!-- Right Column for Client Information -->
-  <div class="w-3/4 p-4">
-    <h1 class="text-2xl font-bold mb-4"><%= @client.name %></h1>
-    <p class="text-gray-700"><strong>Email:</strong> <%= @client.email %></p>
-    <p class="text-gray-700"><strong>Phone:</strong> <%= @client.phone %></p>
+    <!-- Right Column for Client Information -->
+    <div class="w-3/4 p-4">
+      <h1 class="text-2xl font-bold mb-4"><%= @client.name %></h1>
+      <p class="text-gray-700"><strong>Email:</strong> <%= @client.email %></p>
+      <p class="text-gray-700"><strong>Phone:</strong> <%= @client.phone %></p>
+    </div>
   </div>
 </div>
+
