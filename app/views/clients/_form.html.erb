@@ -26,7 +26,22 @@
     <%= form.text_field :phone, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  <div class="grid grid-cols-3 items-center">
+          <%= form.label :gender, "Gender:", class: "text-gray-700 font-medium col-span-1" %>
+          <%= form.select :gender, ["Male", "Female", "Other"], { prompt: "Select Gender" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
   </div>
+
+  <div class="grid grid-cols-3 items-center">
+    <%= form.label :date_of_birth, "Date of Birth:", class: "text-gray-700 font-medium col-span-1" %>
+    <%= form.date_field :date_of_birth, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+  </div>
+
+  <div class="grid grid-cols-3 items-center">
+    <%= form.label :profile_picture, "Profile Picture:", class: "text-gray-700 font-medium col-span-1" %>
+    <%= form.file_field :profile_picture, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
+  </div>
+
+    <div class="text-center">
+      <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
 <% end %>
