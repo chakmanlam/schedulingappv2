@@ -58,6 +58,18 @@ class ClientsController < ApplicationController
     end
   end
 
+  def autocomplete
+    if params[:query].present?
+      @clients = Client.search_by_name(params[:query])
+    else
+      @clients = Client.none
+    end
+
+    respond_to do |format|
+      format.json { render json: @clients.pluck(:name) }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client

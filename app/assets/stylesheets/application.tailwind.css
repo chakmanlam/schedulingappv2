@@ -40,5 +40,7 @@
     max-height: 90%;
     overflow-y: auto;
   }
-
+  .calendar-event {
+    @apply px-1 py-0.5 bg-gray-100 rounded shadow-sm text-xs text-center;
+  }
 }
