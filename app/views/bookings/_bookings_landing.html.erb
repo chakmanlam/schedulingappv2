@@ -56,15 +56,8 @@
         <%= render partial: "calendar", locals: { bookings: bookings} %>
       </div>
     </div>
-
-    <div class="w-1/4 p-4 border-l border-gray-300 bg-white" data-controller="autocomplete">
-      <%= form_with url: clients_path, method: :get, local: true, data: { autocomplete_target: "form" } do %>
-        <div class="mb-4">
-          <%= label_tag :search, "Search by client name", class: "hidden block text-gray-700" %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search by client", class: "mt-1 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full", data: { autocomplete_target: "input" } %>
-        </div>
-        <ul data-autocomplete-target="results" class="border border-gray-300 rounded-md shadow-sm"></ul>
-      <% end %>
+    <div class="w-1/4 p-4 border-l border-gray-300 bg-white">
     </div>
+
   </div>
 </div>

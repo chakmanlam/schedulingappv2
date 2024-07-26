@@ -6,6 +6,20 @@ class ClientsController < ApplicationController
     @clients = Client.all
   end
 
+  def search
+    if params[:query].present?
+      @clients = Client.where("name LIKE ?", "#{params[:query]}%")
+    else
+      @clients = Client.all
+    end
+
+    if turbo_frame_request?
+      render partial: "clients", locals: { clients: @clients }
+    else
+      render :index
+    end
+  end
+
   # GET /clients/1 or /clients/1.json
   def show
     @bookings = @client.bookings.includes(:user, :appointment_type)
@@ -55,18 +69,6 @@ class ClientsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to clients_url, notice: "Client was successfully destroyed." }
       format.json { head :no_content }
-    end
-  end
-
-  def autocomplete
-    if params[:query].present?
-      @clients = Client.search_by_name(params[:query])
-    else
-      @clients = Client.none
-    end
-
-    respond_to do |format|
-      format.json { render json: @clients.pluck(:name) }
     end
   end
 

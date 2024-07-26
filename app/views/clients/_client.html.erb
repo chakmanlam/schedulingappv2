@@ -1,17 +1,5 @@
 <div id="<%= dom_id client %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= client.name %>
+  <p>
+    <%= link_to client.name, client_path(client), class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
   </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Email:</strong>
-    <%= client.email %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Phone:</strong>
-    <%= client.phone %>
-  </p>
-
 </div>

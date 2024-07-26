@@ -48,3 +48,15 @@
         </tbody>
     </table>
 </div>
+
+<div class="flex mt-10">
+    <%= form_with url: clients_path, method: :get, data: { controller: "search-form" ,turbo_frame: "clients", turbo_action: "advance" } do |form| %>
+        <%= form.label :query, "Search by client", class: "hidden" %>
+        <%= form.text_field :query, placeholder: "Search by client", class: "mt-1 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full", data: { action: "input->search-form#search" } %>
+        <%= form.submit "Search", class: "font-medium text-blue-600 dark:text-blue-500 hover:underline" %>
+    <% end %>
+
+    <div class="my-16">
+        <%= render "clients", clients: @clients %>
+    </div>
+</div>
