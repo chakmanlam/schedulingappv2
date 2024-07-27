@@ -1,0 +1,15 @@
+<% if clients.any? %>
+  <div class="absolute bg-white shadow-lg rounded border mt-2">
+    <% clients.each do |client| %>
+      <div class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+        <%= link_to client.name, client_path(client), class: "text-black no-underline" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="absolute bg-white shadow-lg rounded border mt-2">
+    <div class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+      No results found
+    </div>
+  </div>
+<% end %>

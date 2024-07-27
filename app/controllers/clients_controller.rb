@@ -8,15 +8,14 @@ class ClientsController < ApplicationController
 
   def search
     if params[:query].present?
-      @clients = Client.where("name LIKE ?", "#{params[:query]}%")
+      @clients = Client.search_by_name(params[:query])
     else
       @clients = Client.all
     end
 
-    if turbo_frame_request?
-      render partial: "clients", locals: { clients: @clients }
-    else
-      render :index
+    respond_to do |format|
+      format.html { render partial: 'search_results', locals: { clients: @clients } }
+      format.turbo_stream
     end
   end
 
