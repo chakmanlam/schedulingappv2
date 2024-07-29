@@ -7,15 +7,23 @@ class ClientsController < ApplicationController
   end
 
   def search
-    if params[:query].present?
-      @clients = Client.search_by_name(params[:query])
-    else
-      @clients = Client.all
-    end
+    begin
+      if params[:query].present?
+        @clients = Client.search_by_name(params[:query])
+      else
+        @clients = Client.all
+      end
 
-    respond_to do |format|
-      format.html { render partial: 'search_results', locals: { clients: @clients } }
-      format.turbo_stream
+      respond_to do |format|
+        format.turbo_stream { render "clients/search" }
+        format.html { render partial: 'clients/search_results', locals: { clients: @clients } }
+      end
+    rescue => e
+      logger.error "Error during search: #{e.message}"
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("results", partial: "clients/error", locals: { error: e.message }) }
+        format.html { render partial: 'clients/error', locals: { error: e.message }, status: :internal_server_error }
+      end
     end
   end
 
