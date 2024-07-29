@@ -1,8 +1,34 @@
-<%= month_calendar events: bookings do |date, bookings| %>
-  <%= date %>
-  <% bookings.each do |booking| %>
-    <div>
-      <%= link_to booking.client.name, booking, class: "text-indigo" %>
-    </div>
-  <% end %>
-<% end %>
+<div data-controller="calendar">
+  <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+    <ul class="flex flex-wrap -mb-px">
+      <li data-action="click->calendar#showMonthView" class="me-2">
+        <button data-calendar-target="monthButton" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500">
+          Month
+        </button>
+      </li>
+      <li data-action="click->calendar#showWeekView" class="me-2">
+        <button data-calendar-target="weekButton" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+          Week
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div data-calendar-target="monthView">
+    <%= month_calendar events: bookings do |date, bookings| %>
+      <%= date %>
+      <% bookings.each do |booking| %>
+
+      <% end %>
+    <% end %>
+  </div>
+
+  <div data-calendar-target="weekView" class="hidden">
+    <%= week_calendar events: bookings do |date, bookings| %>
+      <%= date %>
+      <% bookings.each do |booking| %>
+
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

@@ -5,14 +5,14 @@
       <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
     </time>
 
-    <nav class="space-x-4">
+    <div class="space-x-4">
       <%= link_to calendar.url_for_previous_view, class: "previous" do %>
         <span></span>
       <% end %>
       <%= link_to calendar.url_for_next_view, class: "next" do %>
         <span></span>
       <% end %>
-    </nav>
+    </div>
   </div>
 
   <!-- Calendar Table -->
