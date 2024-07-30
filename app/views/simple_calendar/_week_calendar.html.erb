@@ -1,41 +1,59 @@
-
-<div class="simple-calendar max-w-5xl mx-auto mt-10">
-  <div class="calendar-heading flex justify-between items-center mb-4">
+<div class="simple-calendar">
+  <!-- Calendar Heading -->
+  <div class="calendar-heading flex flex-wrap justify-between items-center p-4 border-b border-gray-200">
     <span class="calendar-title text-xl font-semibold">
-      <%= t('simple_calendar.week', default: 'Week') %> <%= calendar.week_number %>
-      <% if calendar.number_of_weeks > 1 %>
-        - <%= calendar.end_week %>
-      <% end %>
+      <%= "#{calendar.start_date.beginning_of_week.strftime('%b %d')} – #{calendar.start_date.end_of_week.strftime('%b %d, %Y')}" %>
     </span>
 
-    <nav class="space-x-4">
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "text-blue-500 hover:underline" %>
-      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view, class: "text-blue-500 hover:underline" %>
-      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "text-blue-500 hover:underline" %>
-    </nav>
+    <div class="space-x-4">
+      <%= link_to calendar.url_for_previous_view, class: "previous " do %>
+        <span></span>
+      <% end %>
+      <%= link_to calendar.url_for_next_view, class: "next" do %>
+        <span></span>
+      <% end %>
+    </div>
   </div>
 
-  <table class="table-auto w-full border-collapse border border-gray-300">
+  <table class="table-fixed w-full border-collapse border border-gray-300">
     <thead>
       <tr>
+        <th class="w-1/12 px-4 py-2 bg-gray-100 text-center font-medium text-gray-700"></th>
         <% date_range.slice(0, 7).each do |day| %>
-          <th class="px-4 py-2 border border-gray-300 bg-gray-100"><%= t('date.abbr_day_names')[day.wday] %></th>
+          <th class="w-1/7 px-4 py-2 bg-gray-100 text-center font-medium text-gray-700"><%= t('date.abbr_day_names')[day.wday] %> <%= day.day %></th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% date_range.each_slice(7) do |week| %>
-        <tr>
-          <% week.each do |day| %>
-            <%= content_tag :td, class: "#{calendar.td_classes_for(day)} px-4 py-2 border border-gray-300 align-top" do %>
-              <div class="text-sm font-medium text-right"><%= day.day %></div>
-              <div class="mt-2">
-                <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
-              </div>
+      <% (6..23).each do |hour| %>
+        <% [0, 30].each do |minute| %>
+          <tr>
+            <% if minute == 0 %>
+              <td class="border border-gray-300 text-right px-2 py-1" rowspan="2">
+                <%= Time.new(2000, 1, 1, hour).strftime("%I %p").sub(/^0/, '').downcase %>
+              </td>
             <% end %>
-          <% end %>
-        </tr>
+            <% date_range.slice(0, 7).each do |day| %>
+              <td class="border border-gray-300 align-top h-10 relative">
+                <div class="absolute top-0 left-0 right-0 bottom-0">
+                  <% calendar.sorted_events_for(day).each do |event| %>
+                    <% if (event.start_time.hour == hour && event.start_time.min >= minute) || (event.start_time.hour < hour && event.end_time.hour > hour) || (event.end_time.hour == hour && event.end_time.min <= minute) %>
+                      <div class="absolute w-full bg-blue-500 text-white text-sm p-1 rounded"
+                           style="top: <%= ((event.start_time.hour - hour) * 60 + event.start_time.min - minute) / 30.0 * 100 %>%;
+                                  height: <%= ((event.end_time - event.start_time) / 30.minutes) * 100 %>%;">
+                        <%= link_to booking_path(event), class: "text-white text-xs" do %>
+                          <%= event.start_time.strftime('%I:%M') %> - <%= event.end_time.strftime('%I:%M') %>
+                          <%= event.client.name %> <br>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
