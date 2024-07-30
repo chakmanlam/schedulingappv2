@@ -1,4 +1,4 @@
-<div class="p-10 bg-gray-100 border border-gray-300 rounded-lg max-w-lg mx-auto">
+<div data-controller="time-interval" class="p-10 bg-gray-100 border border-gray-300 rounded-lg max-w-lg mx-auto">
   <%= form_with(model: booking, class: "contents space-y-6") do |form| %>
     <% if booking.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg">
@@ -42,7 +42,12 @@
 
       <div class="grid grid-cols-3 items-center">
         <%= form.label :time, "Time:", class: "text-gray-700 font-medium col-span-1" %>
-        <%= form.time_field :time, data: { controller: "time-picker" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full", step: 1800 %>
+        <%= form.hidden_field :time, data: { time_interval_target: "hiddenInput" }, class: "hidden" %>
+        <div class="col-span-2 mt-2 flex space-x-2">
+          <%= form.select :hour, (1..12).to_a.map { |h| [h, h] }, {}, data: { time_interval_target: "hour" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+          <%= form.select :minute, [["00", 0], ["30", 30]], {}, data: { time_interval_target: "minute" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+          <%= form.select :ampm, [["AM", "AM"], ["PM", "PM"]], {}, data: { time_interval_target: "ampm" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+        </div>
       </div>
 
       <div class="grid grid-cols-3 items-center">
@@ -56,5 +61,3 @@
     </div>
   <% end %>
 </div>
-
-
