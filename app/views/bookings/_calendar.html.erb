@@ -13,7 +13,7 @@
       </li>
     </ul>
   </div>
-  <div data-calendar-target="monthView">
+  <div data-calendar-target="monthView" >
     <%= month_calendar events: bookings do |date, bookings| %>
       <%= date %>
       <% bookings.each do |booking| %>
@@ -22,7 +22,7 @@
     <% end %>
   </div>
 
-  <div data-calendar-target="weekView" class="hidden">
+  <div data-calendar-target="weekView">
     <%= week_calendar events: bookings do |date, bookings| %>
       <%= date %>
       <% bookings.each do |booking| %>

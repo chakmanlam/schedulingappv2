@@ -6,10 +6,10 @@
     </span>
 
     <div class="space-x-4">
-      <%= link_to calendar.url_for_previous_view, class: "previous " do %>
+      <%= link_to calendar.url_for_previous_view, class: "previous ", data: { calendar_target: "previous", action: "click->calendar#navigateKeepingView" } do %>
         <span></span>
       <% end %>
-      <%= link_to calendar.url_for_next_view, class: "next" do %>
+      <%= link_to calendar.url_for_next_view, class: "next", data: { calendar_target: "next", action: "click->calendar#navigateKeepingView" } do %>
         <span></span>
       <% end %>
     </div>

@@ -4,40 +4,41 @@ export default class extends Controller {
   static targets = ["monthView", "weekView", "monthButton", "weekButton", "previous", "next"]
 
   connect() {
-    // if (this.leftTarget contain) {
-
-    // } else {
-      this.showMonthView()
+    this.currentView = new URLSearchParams(window.location.search).get('view') || 'month'
+    this.showView(this.currentView)
   }
 
   showMonthView() {
-    this.monthViewTarget.classList.remove("hidden")
-    this.weekViewTarget.classList.add("hidden")
-    this.monthButtonTarget.classList.add("text-blue-600", "border-blue-600")
-    this.monthButtonTarget.classList.remove("text-gray-600", "border-transparent")
-    this.weekButtonTarget.classList.add("text-gray-600", "border-transparent")
-    this.weekButtonTarget.classList.remove("text-blue-600", "border-blue-600")
-
-    // let leftUrl = this.leftTarget.href
-    // this.leftTarget.href = this.removeSpecificQueryParam(leftUrl, "view=weeks")
+    this.showView('month')
   }
 
   showWeekView() {
-    this.monthViewTarget.classList.add("hidden")
-    this.weekViewTarget.classList.remove("hidden")
-    this.monthButtonTarget.classList.add("text-gray-600", "border-transparent")
-    this.monthButtonTarget.classList.remove("text-blue-600", "border-blue-600")
-    this.weekButtonTarget.classList.add("text-blue-600", "border-blue-600")
-    this.weekButtonTarget.classList.remove("text-gray-600", "border-transparent")
-    // let leftUrl = this.leftTarget.href
-    // this.removeSpecificQueryParam(leftUrl, "view=weeks")
+    this.showView('week')
   }
 
-  removeSpecificQueryParam(url, param) {
-    const suffix = `&${param}`;
-    if (url.endsWith(suffix)) {
-      return url.slice(0, -suffix.length);
+  showView(view) {
+    this.currentView = view
+    if (view === 'month') {
+      this.monthViewTarget.classList.remove("hidden")
+      this.weekViewTarget.classList.add("hidden")
+      this.monthButtonTarget.classList.add("text-blue-600", "border-blue-600")
+      this.monthButtonTarget.classList.remove("text-gray-600", "border-transparent")
+      this.weekButtonTarget.classList.add("text-gray-600", "border-transparent")
+      this.weekButtonTarget.classList.remove("text-blue-600", "border-blue-600")
+    } else {
+      this.monthViewTarget.classList.add("hidden")
+      this.weekViewTarget.classList.remove("hidden")
+      this.monthButtonTarget.classList.remove("text-blue-600", "border-blue-600")
+      this.monthButtonTarget.classList.add("text-gray-600", "border-transparent")
+      this.weekButtonTarget.classList.remove("text-gray-600", "border-transparent")
+      this.weekButtonTarget.classList.add("text-blue-600", "border-blue-600")
     }
-    return url;
+  }
+
+  navigateKeepingView(event) {
+    event.preventDefault()
+    let url = new URL(event.currentTarget.href)
+    url.searchParams.set('view', this.currentView)
+    window.location = url.toString()
   }
 }
