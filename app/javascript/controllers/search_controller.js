@@ -13,6 +13,7 @@ export default class extends Controller {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       this.performSearch();
+      this.showResults();
     }, 300); // debounce to avoid too many requests
   }
 
@@ -38,12 +39,19 @@ export default class extends Controller {
           return;
         }
         console.log("Received response:", html);
-        this.resultsTarget.innerHTML = html;
+        Turbo.renderStreamMessage(html);
       })
       .catch(error => console.error("Error fetching search results:", error));
   }
 
   hideResults() {
-    this.resultsTarget.classList.add("hidden");
+    if (!this.element.contains(event.target)) {
+      this.resultsTarget.classList.add("hidden");
+    }
   }
+
+  showResults() {
+    this.resultsTarget.classList.remove("hidden");
+  }
+
 }

@@ -1,0 +1,3 @@
+<%= turbo_stream.update "results" do %>
+  <%= render partial: "clients/search_results", locals: { clients: @clients } %>
+<% end %>

@@ -15,7 +15,7 @@ class ClientsController < ApplicationController
       end
 
       respond_to do |format|
-        format.turbo_stream { render "clients/search" }
+        format.turbo_stream
         format.html { render partial: 'clients/search_results', locals: { clients: @clients } }
       end
     rescue => e
