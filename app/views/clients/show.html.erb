@@ -45,7 +45,7 @@
 
   <!-- Modal for New Booking Form -->
   <div data-modal-target="modal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden modal-overlay">
-    <div class="bg-white rounded-lg p-6 w-full max-w-md relative modal-content">
+    <div class="bg-white rounded-lg p-6 w-full max-w-3xl relative modal-content">
       <%= render 'bookings/form', booking: Booking.new, client_name: @client.name, client_email: @client.email, client_phone: @client.phone %>
       <div class="text-center mt-1 mb-1">
         <button data-action="click->modal#close" class="bg-gray-500 text-white rounded-lg px-4 py-2 hover:bg-gray-700">Close</button>

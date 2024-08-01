@@ -1,4 +1,4 @@
-<div data-controller="time-interval" class="p-10 bg-gray-100 border border-gray-300 rounded-lg max-w-lg mx-auto">
+<div data-controller="time-interval" class="p-10 bg-gray-100 border border-gray-300 rounded-lg max-w-3xl mx-auto">
   <%= form_with(model: booking, class: "contents space-y-6") do |form| %>
     <% if booking.errors.any? %>
       <div id="error_explanation" class="bg-red-50 text-red-500 px-4 py-3 font-medium rounded-lg">
@@ -13,7 +13,7 @@
     <% end %>
     <div class="grid grid-cols-1 gap-6">
       <div class="grid grid-cols-3 items-center">
-        <%= form.label :user_id, "User:", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.label :user_id, "Practitioner:", class: "text-gray-700 font-medium col-span-1" %>
         <%= form.collection_select :user_id, User.all, :id, :name, { prompt: "Select User" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
 
@@ -22,31 +22,29 @@
         <%= form.text_field :client_name, value: local_assigns[:client_name], class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
       <div class="grid grid-cols-3 items-center">
-        <%= form.label :client_email, "Client Email:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.label :client_email, "Email:", class: "text-gray-700 font-medium col-span-1"  %>
         <%= form.email_field :client_email, value: local_assigns[:client_email], class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
       <div class="grid grid-cols-3 items-center">
-        <%= form.label :client_phone, "Client Phone:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.label :client_phone, "Phone:", class: "text-gray-700 font-medium col-span-1"  %>
         <%= form.text_field :client_phone, value: local_assigns[:client_phone], class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
 
       <div class="grid grid-cols-3 items-center">
-        <%= form.label :appointment_type, "Type", class: "text-gray-700 font-medium col-span-1" %>
+        <%= form.label :appointment_type, "Service:", class: "text-gray-700 font-medium col-span-1" %>
         <%= form.collection_select :appointment_type_id, AppointmentType.all, :id, :name, { prompt: "Select Appointment Type" }, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
 
-      <div class="grid grid-cols-3 items-center">
-        <%= form.label :date, "Date:", class: "text-gray-700 font-medium col-span-1" %>
-        <%= form.date_field :date, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
-      </div>
-
-      <div class="grid grid-cols-3 items-center">
-        <%= form.label :time, "Time:", class: "text-gray-700 font-medium col-span-1" %>
-        <%= form.hidden_field :time, data: { time_interval_target: "hiddenInput" }, class: "hidden" %>
-        <div class="col-span-2 mt-2 flex space-x-2">
-          <%= form.select :hour, (1..12).to_a.map { |h| [h, h] }, {}, data: { time_interval_target: "hour" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
-          <%= form.select :minute, [["00", 0], ["30", 30]], {}, data: { time_interval_target: "minute" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
-          <%= form.select :ampm, [["AM", "AM"], ["PM", "PM"]], {}, data: { time_interval_target: "ampm" }, class: "px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+      <div class="grid grid-cols-3 items-center gap 2">
+        <%= form.label :date, "Date/Time:", class: "text-gray-700 font-medium col-span-1" %>
+        <div class="col-span-2 flex items-center space-x-2">
+          <%= form.date_field :date, class: "flex-1 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+          <%= form.hidden_field :time, data: { time_interval_target: "hiddenInput" }, class: "hidden" %>
+          <div class="flex space-x-1">
+            <%= form.select :hour, (1..12).to_a.map { |h| [h, h] }, {}, data: { time_interval_target: "hour" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+            <%= form.select :minute, [["00", 0], ["30", 30]], {}, data: { time_interval_target: "minute" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+            <%= form.select :ampm, [["AM", "AM"], ["PM", "PM"]], {}, data: { time_interval_target: "ampm" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+          </div>
         </div>
       </div>
 
@@ -54,10 +52,15 @@
         <%= form.label :duration, "Duration:", class: "text-gray-700 font-medium col-span-1"  %>
         <%= form.number_field :duration, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full" %>
       </div>
+
+      <div class="grid grid-cols-3 items-center">
+        <%= form.label :note, "Note:", class: "text-gray-700 font-medium col-span-1"  %>
+        <%= form.text_area :note, class: "col-span-2 mt-2 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300 w-full", placeholder: "This note is for your own use."  %>
+      </div>
     </div>
 
     <div class="text-center">
-      <%= form.submit "Create", class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white font-medium cursor-pointer shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
     </div>
   <% end %>
 </div>

@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 
-
 @layer components {
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
   }
+
   .previous::before {
     content: url('data:image/svg+xml;utf8,<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>');
     display: inline-block;
@@ -27,10 +27,9 @@
   .previous:hover::before,
   .next:hover::after {
     transform: scale(1.2);
-    color: #1d4ed8; /* Tailwind's blue-700 color */
+    color: #1d4ed8;
   }
 
-  /* Add any additional styles here */
   .modal-overlay {
     background-color: rgba(0, 0, 0, 0.5);
   }
