@@ -35,11 +35,19 @@
               </td>
             <% end %>
             <% date_range.slice(0, 7).each do |day| %>
-              <td class="border border-gray-300 align-top h-10 relative">
+              <td class="border border-gray-300 align-top h-10 relative <%= day == Date.today ? 'bg-blue-50' : 'bg-white' %>">
                 <div class="absolute top-0 left-0 right-0 bottom-0">
                   <% calendar.sorted_events_for(day).each do |event| %>
                     <% if (event.start_time.hour == hour && event.start_time.min >= minute) || (event.start_time.hour < hour && event.end_time.hour > hour) || (event.end_time.hour == hour && event.end_time.min <= minute) %>
-                      <div class="absolute w-full bg-blue-500 text-white text-sm p-1 rounded"
+                      <% bg_color = case event.appointment_type.name
+                                    when 'Initial Assessment'
+                                      'bg-lime-500'
+                                    when 'Follow Up'
+                                      'bg-blue-200'
+                                    else
+                                      'bg-blue-200 text-blue-800'
+                                    end %>
+                      <div class="absolute w-full <%= bg_color %> text-sm p-1 rounded"
                            style="top: <%= ((event.start_time.hour - hour) * 60 + event.start_time.min - minute) / 30.0 * 100 %>%;
                                   height: <%= ((event.end_time - event.start_time) / 30.minutes) * 100 %>%;">
                         <%= link_to booking_path(event), class: "text-white text-xs" do %>

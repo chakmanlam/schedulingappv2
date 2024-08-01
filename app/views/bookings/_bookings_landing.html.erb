@@ -58,11 +58,17 @@
     </div>
 
     <div class="w-1/4 p-4 border-l border-gray-300 bg-white">
-      <div data-controller="search" data-action="click@window->search#hideResults">
-        <%= form_with url: search_clients_path, method: :get, local: true, data: { action: "input->search#search", turbo_stream: true } do |form| %>
-          <%= form.text_field :query, placeholder: "Search Clients", class: "search-input", data: { search_target: "input" } %>
-        <% end %>
-        <div id="results" data-search-target="results"></div>
+      <div data-controller="search" data-action="click@window->search#hideResults" class="w-64">
+        <div class="relative">
+            <%= form_with url: search_clients_path, method: :get, local: true, data: { action: "input->search#search", turbo_stream: true }, class: "w-full" do |form| %>
+                <%= form.text_field :query,
+                placeholder: "Search Clients",
+                class: "block w-full px-3 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+                data: { search_target: "input" } %>
+            <% end %>
+        </div>
+        <div id="results" data-search-target="results">
+        </div>
       </div>
     </div>
 
