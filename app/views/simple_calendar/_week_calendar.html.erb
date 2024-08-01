@@ -44,7 +44,7 @@
                         <%= 'bg-sky-400' if event.appointment_type.name == 'Follow Up' %>"
                            style="top: <%= ((event.start_time.hour - hour) * 60 + event.start_time.min - minute) / 30.0 * 100 %>%;
                                   height: <%= ((event.end_time - event.start_time) / 30.minutes) * 100 %>%;">
-                        <%= link_to booking_path(event), class: "text-white text-xs" do %>
+                        <%= link_to edit_booking_path(event), class: "text-white text-xs" do %>
                           <%= event.start_time.strftime('%I:%M') %> - <%= event.end_time.strftime('%I:%M') %>
                            <br>
                           <%= event.client.name %>

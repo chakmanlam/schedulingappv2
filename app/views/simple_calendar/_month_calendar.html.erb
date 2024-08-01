@@ -40,8 +40,8 @@
                   <div class="text-sm text-center px-2 py-1 rounded
                               <%= 'bg-red-200 text-red-800' if event.appointment_type.name == 'Initial Assessment' %>
                               <%= 'bg-green-200 text-green-800' if event.appointment_type.name == 'Follow Up' %>">
-                    <%= link_to booking_path(event), class: "text-xs text-center text-black rounded px-1 py-0.5" do %>
-                    <%= event.datetime.strftime('%-I%p') %> <%= event.client.name %>
+                    <%= link_to edit_booking_path(event), class: "text-xs text-center text-black rounded px-1 py-0.5" do %>
+                    <%= event.datetime.strftime('%-I:%M%p') %> <%= event.client.name %>
                   <% end %>
                   </div>
                 <% end %>
