@@ -20,6 +20,10 @@ class BookingsController < ApplicationController
   def edit
   end
 
+  def appointments
+    @bookings = Booking.includes(:user, :client).all
+  end
+
   # POST /bookings or /bookings.json
   def create
     user = User.find(booking_params[:user_id])
