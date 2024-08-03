@@ -38,12 +38,12 @@
       <div class="grid grid-cols-3 items-center gap 2">
         <%= form.label :date, "Date/Time:", class: "text-gray-700 font-medium col-span-1" %>
         <div class="col-span-2 flex items-center space-x-2">
-          <%= form.date_field :date, value: booking.start_time&.to_date || "", class: "flex-1 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+          <%= form.date_field :date, value: @date || booking.start_time&.to_date || "", class: "flex-1 px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
           <%= form.hidden_field :time, data: { time_interval_target: "hiddenInput" }, class: "hidden" %>
           <div class="flex space-x-1">
-            <%= form.select :hour, (1..12).to_a.map { |h| [h, h] }, { selected: booking.start_time&.strftime("%I").to_i }, data: { time_interval_target: "hour" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
-            <%= form.select :minute, [["00", 0], ["30", 30]], { selected: booking.start_time&.strftime("%M").to_i }, data: { time_interval_target: "minute" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
-            <%= form.select :ampm, [["AM", "AM"], ["PM", "PM"]], { selected: booking.start_time&.strftime("%p") }, data: { time_interval_target: "ampm" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+            <%= form.select :hour, (1..12).to_a.map { |h| [h, h] }, { selected: @hour || booking.start_time&.strftime("%I").to_i }, data: { time_interval_target: "hour" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+            <%= form.select :minute, [["00", 0], ["30", 30]], { selected: @minute || booking.start_time&.strftime("%M").to_i }, data: { time_interval_target: "minute" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
+            <%= form.select :ampm, [["AM", "AM"], ["PM", "PM"]], { selected: @ampm || booking.start_time&.strftime("%p") }, data: { time_interval_target: "ampm" }, class: "px-2 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" %>
           </div>
         </div>
       </div>

@@ -14,6 +14,16 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
+    if params[:date] && params[:time]
+      datetime_string = "#{params[:date]}T#{params[:time]}"
+      datetime = DateTime.parse(datetime_string)
+      @booking.datetime = datetime
+
+      @date = datetime.to_date
+      @hour = datetime.strftime("%I").to_i
+      @minute = datetime.strftime("%M").to_i
+      @ampm = datetime.strftime("%p")
+    end
   end
 
   # GET /bookings/1/edit

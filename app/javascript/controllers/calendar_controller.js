@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["monthView", "weekView", "monthButton", "weekButton", "previous", "next"]
+  static targets = ["monthView", "weekView", "monthButton", "weekButton", "previous", "next", "event"]
 
   connect() {
     this.currentView = new URLSearchParams(window.location.search).get('view') || 'month'
@@ -40,5 +40,26 @@ export default class extends Controller {
     let url = new URL(event.currentTarget.href)
     url.searchParams.set('view', this.currentView)
     window.location = url.toString()
+  }
+
+  handleSlotClick(event) {
+    const date = event.currentTarget.dataset.date
+    const booked = event.currentTarget.dataset.booked === 'true'
+
+    const [datePart, timePart] = date.split(' ')
+    const [year, month, day] = datePart.split('-')
+    const [hour, minute] = timePart ? timePart.split(':') : ['00', '00']
+
+
+    const formattedDate = `${year}-${month}-${day}`
+    const formattedTime = `${hour}:${minute}`
+    console.log(formattedDate, formattedTime)
+
+    if (booked) {
+      console.log("booked")
+    } else {
+      const url = `/bookings/new?date=${formattedDate}&time=${formattedTime}`
+      window.location.href = url
+    }
   }
 }
