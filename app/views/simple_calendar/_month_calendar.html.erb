@@ -31,7 +31,7 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: "align-top h-32 sm:h-40 md:h-48 lg:h-56 px-4 py-2 border-t border-r border-gray-200 #{'bg-blue-50' if day == Date.today}", data: { action: "click->calendar#handleSlotClick", date: "#{day} 00:00" } do %>
+            <%= content_tag :td, class: "align-top h-32 sm:h-40 md:h-48 lg:h-56 px-4 py-2 border-t border-r border-gray-200 #{'bg-blue-50' if day == Date.today}", data: { action: "click->calendar#handleSlotClick", date: "#{day} 00:00", booked: calendar.sorted_events_for(day).any? } do %>
               <div>
                 <div class="text-right font-semibold text-gray-700"><%= day.day %></div>
               </div>
