@@ -44,8 +44,8 @@
 
 </nav>
 
-<div data-controller="tab">
-  <div data-tab-target="panel" data-panel="calendar" class="flex">
+<div>
+  <div class="flex">
     <div class="w-3/4 container mx-auto">
       <div id="meeting-calendar">
         <%= render partial: "calendar", locals: { bookings: bookings} %>
@@ -65,7 +65,11 @@
         <div id="results" data-search-target="results">
         </div>
       </div>
-    </div>
 
+      <div data-controller="tailwind-datepicker" class="w-64 mt-4">
+        <input type="text" data-tailwind-datepicker-target="input" class="w-full p-2 border rounded" readonly>
+        <div data-tailwind-datepicker-target="calendar" class="mt-2 p-2 bg-white border rounded shadow"></div>
+      </div>
+    </div>
   </div>
 </div>

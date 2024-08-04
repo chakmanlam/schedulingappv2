@@ -7,6 +7,14 @@ class BookingsController < ApplicationController
     @bookings = Booking.includes(:user, :client).all
   end
 
+  def update_calendar
+    @bookings = Booking.includes(:user, :client).all
+
+    respond_to do |format|
+      format.turbo_stream # renders update_calendar.turbo_stream.erb
+    end
+  end
+
   # GET /bookings/1 or /bookings/1.json
   def show
   end
