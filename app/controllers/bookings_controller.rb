@@ -8,7 +8,14 @@ class BookingsController < ApplicationController
   end
 
   def update_calendar
+    year = params[:year].to_i
+    month = params[:month].to_i
+    start_date = Date.new(year, month)
+
     @bookings = Booking.includes(:user, :client).all
+
+    logger.debug "update_calendar action called"
+    logger.debug "Number of bookings: #{@bookings.count}"
 
     respond_to do |format|
       format.turbo_stream # renders update_calendar.turbo_stream.erb

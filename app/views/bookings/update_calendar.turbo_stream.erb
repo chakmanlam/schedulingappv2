@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "meeting-calendar" do %>
+  <%= month_calendar(events: bookings, start_date: start_date) do |date, bookings| %>
+    <%= render partial: "simple_calendar/month_calendar", locals: { date: date, bookings: bookings } %>
+  <% end %>
+<% end %>
+

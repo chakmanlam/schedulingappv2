@@ -63,6 +63,7 @@ export default class extends Controller {
     const month = this.selectedDate.getMonth() + 1; // getMonth() is zero-based
     const url = `/bookings/update_calendar?year=${year}&month=${month}`;
 
+    console.log(`Fetching calendar for ${year}-${month}`)
     fetch(url, {
       headers: {
         Accept: "text/vnd.turbo-stream.html",
@@ -70,7 +71,8 @@ export default class extends Controller {
     })
     .then(response => response.text())
     .then(html => {
-      this.calendarTarget.innerHTML = html;
+      console.log("Received HTML:", html)
+      document.getElementById('meeting-calendar').innerHTML = html
     })
     .catch(error => console.error("Error loading month view:", error));
   }
