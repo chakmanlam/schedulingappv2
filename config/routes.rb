@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  resources :bookings do
-    collection do
-      get :update_calendar
-    end
-  end
+  resources :bookings
   resources :appointment_types
   resources :clients do
     collection do
