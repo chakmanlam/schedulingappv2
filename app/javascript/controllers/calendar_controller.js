@@ -5,6 +5,7 @@ export default class extends Controller {
 
   connect() {
     this.currentView = new URLSearchParams(window.location.search).get('view') || 'month'
+    this.selectedDate = new URLSearchParams(window.location.search).get('date') || new Date().toISOString().split('T')[0]
     this.showView(this.currentView)
   }
 
@@ -62,4 +63,33 @@ export default class extends Controller {
       window.location.href = url
     }
   }
+
+  updateCalendar() {
+    let selectedDate = event.detail
+    let view = this.currentView
+
+    console.log(`Selected date: ${selectedDate}`)
+    console.log(`Current view: ${view}`)
+
+    if (this.currentView === 'month') {
+      this.loadMonthView(this.selectedDate)
+    } else {
+      this.loadWeekView(this.selectedDate)
+    }
+  }
+
+  loadMonthView(selectedDate) {
+    console.log(`Load month view for date: ${selectedDate}`)
+    // Example AJAX request to fetch month view data for the selected date
+    fetch(`/calendar/month?date=${selectedDate}`)
+      .then(response => response.json())
+      .then(data => {
+        // Update the month view with the fetched data
+        console.log(`Month view data for ${selectedDate}:`, data)
+        // Update the DOM with the new data
+        this.monthViewTarget.innerHTML = data.html
+      })
+      .catch(error => console.error('Error loading month view:', error))
+  }
+
 }
