@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts, only: [:new, :create]
   resources :bookings
   resources :appointment_types
   resources :clients do
@@ -18,6 +19,8 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
   get 'appointments', to: 'bookings#appointments'
+  get 'contact', to: 'contacts#new'
+  get 'terms-of-service', to: 'pages#terms_of_service'
 
   # Defines the root path route ("/")
   root "home#show"
